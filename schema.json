@@ -1,0 +1,98 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Google Generative Language API (Gemini Model)",
+    "version": "1.0.0",
+    "description": "This schema connects CustomGPT to the Google Generative Language API (Gemini 1.5 Model) for generating text content."
+  },
+  "servers": [
+    {
+      "url": "https://generativelanguage.googleapis.com/v1beta"
+    }
+  ],
+  "paths": {
+    "/models/gemini-1.5-flash:generateContent": {
+      "post": {
+        "summary": "Generate text using Google's Gemini Model",
+        "operationId": "generateContent",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "AIzaSyAG_qKngyNJI75FkzrIXl1R4iPQD0YJBIY"
+            },
+            "description": "The API key for authenticating requests."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "parts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "example": "Write a story about a futuristic city powered entirely by renewable energy."
+                              }
+                            },
+                            "required": ["text"]
+                          }
+                        }
+                      },
+                      "required": ["parts"]
+                    }
+                  }
+                }
+              },
+              "example": {
+                "contents": [
+                  {
+                    "parts": [
+                      {
+                        "text": "Write an inspiring speech about how AI can improve humanity's future."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response containing the generated content.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "contents": [
+                    {
+                      "parts": [
+                        {
+                          "text": "The future of humanity, powered by AI, is one of harmony, innovation, and progress. Through collaboration and technology, we can solve the challenges of today and build a brighter tomorrow."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
